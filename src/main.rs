@@ -1,9 +1,19 @@
 use gh_models::{GHModels, types::ChatMessage};
 use std::env;
 use std::io::{self, Write};
+use clap::Parser;
+
+#[derive(Parser, Debug)]
+struct Args {
+    /// Model to use (e.g. openai/gpt-4o)
+    #[arg(long, default_value = "openai/gpt-4o")]
+    model: String,
+}
 
 #[tokio::main]
 async fn main() {
+    let args = Args::parse();
+
     let token = env::var("GITHUB_TOKEN").expect("Missing GITHUB_TOKEN");
     let client = GHModels::new(token);
 
@@ -32,7 +42,7 @@ async fn main() {
         });
 
         let response = client
-            .chat_completion("openai/gpt-4o", &messages, 1.0, 4096, 1.0)
+            .chat_completion(&args.model, &messages, 1.0, 4096, 1.0)
             .await
             .unwrap();
 
