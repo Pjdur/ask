@@ -26,6 +26,12 @@ You’ll drop into a simple chat prompt.
 Type your message, press Enter, and the AI replies.  
 Type `exit` to leave the conversation.
 
+You can also run it using a different model:
+
+```bash
+cargo run -- --model openai/gpt-5
+```
+
 ## Why?
 
 Because sometimes you just want to ask a question without opening a browser, switching apps, or losing your flow.
