@@ -2,6 +2,7 @@ use gh_models::{GHModels, types::ChatMessage};
 use std::env;
 use std::io::{self, Write};
 use clap::Parser;
+use colorline::Style;
 
 #[derive(Parser, Debug)]
 struct Args {
@@ -25,7 +26,7 @@ async fn main() {
     ];
 
     loop {
-        print!("You: ");
+        print!("{}", "You: ".green());
         io::stdout().flush().unwrap();
 
         let mut input = String::new();
@@ -47,7 +48,7 @@ async fn main() {
             .unwrap();
 
         let reply = response.choices[0].message.content.clone();
-        println!("Assistant: {}", reply);
+        println!("{}: {}", "Assistant".blue(), reply);
 
         messages.push(ChatMessage {
             role: "assistant".into(),

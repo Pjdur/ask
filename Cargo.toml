@@ -7,3 +7,4 @@ edition = "2024"
 tokio = "1.49.0"
 gh_models = "0.2.0"
 clap = { version = "4", features = ["derive"]  }
+colorline = "0.1.0"
