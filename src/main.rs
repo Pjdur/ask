@@ -34,6 +34,8 @@ async fn main() {
         execute!(stdout(), Clear(ClearType::Purge)).unwrap();
         execute!(stdout(), MoveTo(0,0)).unwrap();
 
+        println!("{}", "ask - ask anything".grey());
+
         for msg in &messages {
             match msg.role.as_str() {
                 "user" => println!("{} {}", "You:".green(), msg.content),
