@@ -4,6 +4,14 @@ A tiny terminal chat app for talking to an AI model, nothing fancy (yet!), just 
 
 ## Getting Started
 
+### Installation
+
+Run:
+
+```bash
+cargo install --git https://github.com/Pjdur/ask.git
+```
+
 ### Set your GitHub token
 
 **Windows (PowerShell):**
