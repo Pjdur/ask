@@ -12,7 +12,7 @@ Run:
 cargo install --git https://github.com/Pjdur/ask.git
 ```
 
-Or if uou're on Windows you can use the Powershell installer:
+Or if you're on Windows you can use the Powershell installer:
 
 ```powershell
 powershell -c "irm pjdur.github.io/pjdur/ask/ask-Installer.ps1 | iex"
