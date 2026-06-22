@@ -32,7 +32,7 @@ export GITHUB_TOKEN=your_token_here
 ### Run it
 
 ```bash
-cargo run
+ask
 ```
 
 You’ll drop into a simple chat prompt.  
@@ -42,7 +42,7 @@ Type `exit` to leave the conversation.
 You can also run it using a different model:
 
 ```bash
-cargo run -- --model openai/gpt-5
+ask --model openai/gpt-5
 ```
 
 ## Why?
