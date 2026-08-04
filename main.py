@@ -104,7 +104,8 @@ def main():
             reply_text = response.text
             
             console.print()
-            console.print(Panel(Markdown(reply_text), title="[bold blue]Assistant[/bold blue]", border_style="blue"))
+            console.print("[bold blue]Assistant:[/bold blue]")
+            console.print(Markdown(reply_text))
             console.print()
 
         except Exception as e:
