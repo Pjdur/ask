@@ -2,7 +2,9 @@ import os
 import sys
 import re
 import time
+import mimetypes
 from google import genai
+from google.genai import types
 from rich.console import Console
 from rich.markdown import Markdown
 from rich.prompt import Prompt
@@ -70,24 +72,32 @@ def main():
                 if os.path.exists(abs_filename):
                     try:
                         console.print(f"[cyan]⏳ Uploading {filename} via File API...[/cyan]")
-                        
-                        uploaded_file = client.files.upload(file=abs_filename)
-                        
+                    
+                        mime_type, _ = mimetypes.guess_type(abs_filename)
+                    
+                        if not mime_type:
+                            mime_type = "text/plain"
+                    
+                        uploaded_file = client.files.upload(
+                            file=abs_filename,
+                            config=types.UploadFileConfig(mime_type=mime_type)
+                        )
+                    
                         while uploaded_file.state.name == "PROCESSING":
                             time.sleep(1)
                             uploaded_file = client.files.get(name=uploaded_file.name)
-                        
+                    
                         if uploaded_file.state.name == "FAILED":
                             raise Exception("Google processing failed on the file.")
 
-                        session_files[abs_filename] = uploaded_file
                         files_to_attach.append(uploaded_file)
                         console.print(f"[green]✓ Uploaded: {filename}[/green]")
                     except Exception as e:
                         console.print(f"[red]❌ CRITICAL: Upload failed for {filename}.[/red]")
                         console.print(f"[red]Error details: {e}[/red]")
+                        
                 else:
-                    console.print(f"[red]File not found: {abs_filename}[/red]")    
+                    console.print(f"[red]File not found: {abs_filename}[/red]")
 
         payload = []
         if user_input:
