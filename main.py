@@ -43,7 +43,7 @@ def extract_filenames(text):
 
 def main():
     console.print(Panel.fit(
-        "[bold blue]Gemini Terminal Chat[/bold blue]\nType 'exit' to quit. Use @filename to attach files.", 
+        "[bold blue]Ask[/bold blue]\nType 'exit' to quit. Use @filename to attach files.", 
         border_style="blue"
     ))
     
