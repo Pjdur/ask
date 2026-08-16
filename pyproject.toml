@@ -8,3 +8,8 @@ dependencies = [
     "google-genai>=2.16.0",
     "rich>=15.0.0",
 ]
+
+[dependency-groups]
+dev = [
+    "pyinstaller>=6.22.1",
+]
