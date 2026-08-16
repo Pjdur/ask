@@ -1,0 +1,47 @@
+name: Build Draft Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    name: Build ${{ matrix.asset_name }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            asset_name: ask-linux-x64
+            executable_path: dist/ask-linux-x64
+          - os: windows-latest
+            asset_name: ask-windows-x64.exe
+            executable_path: dist/ask-windows-x64.exe
+          - os: macos-latest
+            asset_name: ask-macos-x64
+            executable_path: dist/ask-macos-x64
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v10
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+
+      - name: Build Executable
+        run: |
+          uv add --dev pyinstaller
+          uv run pyinstaller --onefile --name ${{ matrix.asset_name }} main.py
+
+      - name: Upload to Draft Release
+        uses: softprops/action-gh-release@v3
+        with:
+          draft: true
+          files: ${{ matrix.executable_path }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
